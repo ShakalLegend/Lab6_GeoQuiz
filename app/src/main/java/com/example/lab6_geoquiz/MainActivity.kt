@@ -58,7 +58,7 @@ fun onScreen(modifier: Modifier = Modifier) {
         Question("The Amazon River is the longest river in the Americas.","true"),
         Question("Lake Baikal is the world's oldest and deepest freshwater lake.","true"),
     )
-    var round = 0
+    var round by remember { mutableStateOf(0) }
     var question by remember { mutableStateOf(questions[round].quest)}
     Box(modifier = Modifier.fillMaxSize()){
         Column() {
@@ -73,9 +73,17 @@ fun onScreen(modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement
                         .SpaceBetween
             ) {
-                Button(onClick = {}, modifier = Modifier.padding(10.dp)) {Text("False")}
-                Button(onClick = {}, modifier = Modifier.padding(10.dp)) {Text("True") }
+                Button(onClick = {
+                }, modifier = Modifier.padding(10.dp)) {Text("False")}
+                Button(onClick = {
+                }, modifier = Modifier.padding(10.dp)) {Text("True") }
             }
+            Button(onClick = {
+                round+=1
+                question = questions[round].quest
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp), ) {Text("Next") }
         }
     }
 
