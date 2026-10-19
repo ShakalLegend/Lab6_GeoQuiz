@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,10 +47,22 @@ class MainActivity : ComponentActivity() {
 fun onScreen(modifier: Modifier = Modifier) {
     var question by remember { mutableStateOf("Поле с вопросом")}
     Box(modifier = Modifier.fillMaxSize()){
-        Text(question, modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-            textAlign = TextAlign.Center)
+        Column() {
+            Text(question, modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+                textAlign = TextAlign.Center
+            )
+            Row(modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                    horizontalArrangement = Arrangement
+                        .SpaceBetween
+            ) {
+                Button(onClick = {}, modifier = Modifier.padding(10.dp)) {Text("False")}
+                Button(onClick = {}, modifier = Modifier.padding(10.dp)) {Text("True") }
+            }
+        }
     }
 
 }
