@@ -1,5 +1,6 @@
 package com.example.lab6_geoquiz
 
+import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,21 +47,22 @@ class MainActivity : ComponentActivity() {
 
 data class Question(
     val quest: String,
-    val answer: String,
+    val answer: Boolean,
 )
 
 @Composable
 fun onScreen(modifier: Modifier = Modifier) {
     var questions = listOf(
-        Question("Canberra is the capital of Australia.","true"),
-        Question("The Pacific Ocean is larger than the Atlantic Ocean.","true"),
-        Question("The Suez Canal connects the Red Sea and the Indian Ocean.","false"),
-        Question("The source of the Nile River is in Egypt.","false"),
-        Question("The Amazon River is the longest river in the Americas.","true"),
-        Question("Lake Baikal is the world's oldest and deepest freshwater lake.","true"),
+        Question("Canberra is the capital of Australia.",true),
+        Question("The Pacific Ocean is larger than the Atlantic Ocean.",true),
+        Question("The Suez Canal connects the Red Sea and the Indian Ocean.",false),
+        Question("The source of the Nile River is in Egypt.",false),
+        Question("The Amazon River is the longest river in the Americas.",true),
+        Question("Lake Baikal is the world's oldest and deepest freshwater lake.",true),
     )
     var round by remember { mutableStateOf(0) }
     var question by remember { mutableStateOf(questions[round].quest)}
+    var correct by remember { mutableStateOf(0) }
     Box(modifier = Modifier.fillMaxSize()){
         Column() {
             Text(question, modifier = Modifier
@@ -74,8 +77,14 @@ fun onScreen(modifier: Modifier = Modifier) {
                         .SpaceBetween
             ) {
                 Button(onClick = {
+                    if (false == questions[round].answer) {
+                        correct += 1
+                    }
                 }, modifier = Modifier.padding(10.dp)) {Text("False")}
                 Button(onClick = {
+                    if (true == questions[round].answer) {
+                        correct += 1
+                    }
                 }, modifier = Modifier.padding(10.dp)) {Text("True") }
             }
             Button(onClick = {
@@ -84,6 +93,7 @@ fun onScreen(modifier: Modifier = Modifier) {
             }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp), ) {Text("Next") }
+            Text(correct.toString())
         }
     }
 
