@@ -63,6 +63,7 @@ fun onScreen(modifier: Modifier = Modifier) {
     var round by remember { mutableStateOf(0) }
     var question by remember { mutableStateOf(questions[round].quest)}
     var correct by remember { mutableStateOf(0) }
+    var canGetAnswer by remember { mutableStateOf(true) }
     Box(modifier = Modifier.fillMaxSize()){
         Column() {
             Text(question, modifier = Modifier
@@ -70,29 +71,36 @@ fun onScreen(modifier: Modifier = Modifier) {
                 .padding(10.dp),
                 textAlign = TextAlign.Center
             )
-            Row(modifier = Modifier
+            if (canGetAnswer){
+                Row(modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth(),
                     horizontalArrangement = Arrangement
                         .SpaceBetween
-            ) {
-                Button(onClick = {
-                    if (false == questions[round].answer) {
-                        correct += 1
-                    }
-                }, modifier = Modifier.padding(10.dp)) {Text("False")}
-                Button(onClick = {
-                    if (true == questions[round].answer) {
-                        correct += 1
-                    }
-                }, modifier = Modifier.padding(10.dp)) {Text("True") }
+                ) {
+                    Button(onClick = {
+                        if (false == questions[round].answer) {
+                            correct += 1
+                        }
+                        canGetAnswer = false
+                    }, modifier = Modifier.padding(10.dp)) {Text("False")}
+                    Button(onClick = {
+                        if (true == questions[round].answer) {
+                            correct += 1
+                        }
+                        canGetAnswer = false
+                    }, modifier = Modifier.padding(10.dp)) {Text("True") }
+                }
             }
-            Button(onClick = {
-                round+=1
-                question = questions[round].quest
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp), ) {Text("Next") }
+            if (!canGetAnswer) {
+                Button(onClick = {
+                    round+=1
+                    question = questions[round].quest
+                    canGetAnswer = true
+                }, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp), ) {Text("Next") }
+            }
             Text(correct.toString())
         }
     }
