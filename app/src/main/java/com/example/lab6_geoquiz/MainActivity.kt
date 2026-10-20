@@ -114,10 +114,6 @@ fun onScreen(modifier: Modifier = Modifier) {
                     .padding(10.dp), ) {if (round < 5) Text("Next") else Text("Итоги")}
             }
 
-            Text(round.toString() + " раунд")
-            Text(correct.toString() + " правильных ответов")
-            Text(canGetAnswer.toString() + " canGetAnswer")
-            Text(showDialog.toString() + " showDialog")
             if (showDialog) {
                 AlertDialog(
                     onDismissRequest = { showDialog = false },
