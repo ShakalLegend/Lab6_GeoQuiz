@@ -113,6 +113,7 @@ fun onScreen(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .padding(10.dp), ) {if (round < 5) Text("Next") else Text("Итоги")}
             }
+
             Text(round.toString() + " раунд")
             Text(correct.toString() + " правильных ответов")
             Text(canGetAnswer.toString() + " canGetAnswer")
