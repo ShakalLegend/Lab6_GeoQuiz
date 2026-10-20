@@ -115,6 +115,8 @@ fun onScreen(modifier: Modifier = Modifier) {
             }
             Text(round.toString() + " раунд")
             Text(correct.toString() + " правильных ответов")
+            Text(canGetAnswer.toString() + " правильных ответов")
+            Text(showDialog.toString() + " правильных ответов")
             if (showDialog) {
                 AlertDialog(
                     onDismissRequest = { showDialog = false },
